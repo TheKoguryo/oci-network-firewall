@@ -2,12 +2,19 @@
 resource "oci_network_firewall_network_firewall_policy" "network_firewall_policy" {
   display_name   = "network-firewall-policy-demo"
   compartment_id = var.network_compartment_ocid
-  security_rules {
-    action = var.oci_network_firewall_policy_action
-    condition {
-    }
-    name = "Allow-All"
+}
+
+resource oci_network_firewall_network_firewall_policy_security_rule network_firewall_policy_security_rule {
+  action = var.oci_network_firewall_policy_action
+  condition {
+    application = []
+    destination_address = []
+    service = []
+    source_address = []
+    url = []
   }
+  name = "Allow-All"
+  network_firewall_policy_id = oci_network_firewall_network_firewall_policy.network_firewall_policy.id
 }
 
 # ------ OCI Network Firewall
